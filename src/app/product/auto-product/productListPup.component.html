@@ -1,0 +1,28 @@
+ <mat-card>
+  <mat-card-title align="center">{{'prdList' | translate }}</mat-card-title>
+ <mat-card-content>
+  
+   <p> <ngx-datatable
+  class="material "
+  [rows]="rows"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [selected]="selected"
+  [externalPaging]="true"
+  [count]="count"
+  [offset]="offset"
+  [limit]="limit"
+  [selectionType]="'single'"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (page)='onPage($event)'>
+  
+  <ngx-datatable-column name="{{'refPrd' | translate }}" prop="refProduct" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'labelPrd' | translate }}" prop="libelle" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'qntDisp' | translate }}" prop="balance" ></ngx-datatable-column> 
+</ngx-datatable> </p>
+  <button mat-button type="button" (click)="dialogRef.close(selected)">{{'CLOSE' | translate }}</button>`
+  </mat-card-content>
+   </mat-card>

@@ -1,0 +1,25 @@
+<mat-card class="demo-dialog-card">
+
+  
+    
+    <mat-card-content> 
+	
+	 <form  fxLayout="row" fxLayoutAlign="start center" class="mb-2" [formGroup]="stateCtrl" >	 
+ <mat-input-container style="width: 100%">
+        <input type="text" placeholder="{{'LECLIENT' | translate }}" aria-label="Persoonne" matInput [formControl]="stateCtrl"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selectedItemChange($event)">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            <span>{{ option.libelle }}</span>
+            <span> ({{option.numAccount}}) </span>
+
+          </mat-option>
+        </mat-autocomplete>
+      </mat-input-container>
+	
+    </form>
+	
+  
+  </mat-card-content>
+  
+</mat-card>

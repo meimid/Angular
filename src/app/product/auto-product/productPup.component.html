@@ -1,0 +1,21 @@
+<mat-card class="demo-dialog-card">
+
+  
+    
+    <mat-card-content> 
+	 <form  fxLayout="row" fxLayoutAlign="start center" class="mb-2" [formGroup]="form" >
+      <mat-input-container class="ml-xs mr-xs" style="width: 100%;">
+        <input matInput placeholder="{{'refPrd' | translate }}"  [formControl]="form.controls['numPrd']"  maxLength="6" >
+		<mat-icon matPrefix (click)="open()">perm_contact_calendar</mat-icon>
+        
+      </mat-input-container>
+      <mat-input-container class="ml-xs mr-xs" style="width: 100%;">
+        <input matInput placeholder="{{'labelPrd' | translate }}" [formControl]="form.controls['libelle']" [disabled]="false" >
+      </mat-input-container>
+	  
+    </form>
+	
+  
+  </mat-card-content>
+  
+</mat-card>

@@ -1,0 +1,41 @@
+<mat-card>
+  
+		  <div align="center">
+		    <h1> {{'Listfacture' | translate }}</h1>
+			
+			
+		  </div>
+		  <div align="center">
+               <mat-form-field >
+    <input matInput    placeholder="{{'search' | translate }} ..." required (keyup)='updateFilter($event)'>
+  </mat-form-field> 
+</div>
+ <mat-card-content>
+<ngx-datatable
+  class="material"
+  [rows]="rows" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit">
+   <ngx-datatable-column name="{{'DATECREA' | translate }}" prop="date" >
+     <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+    </ng-template> 
+   
+   </ngx-datatable-column> 
+   <ngx-datatable-column name="{{'labelNumfacture' | translate }}" prop="numFacture" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'LECLIENT' | translate }}" prop="clientNom" ></ngx-datatable-column> 
+    <ngx-datatable-column name="{{'TOTAL' | translate }}" prop="totalF" ></ngx-datatable-column>
+    <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="numFacture" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		    <mat-icon   (click)="factureDetail(value)">edit</mat-icon>
+		   
+          </ng-template>   
+  </ngx-datatable-column>  
+   
+</ngx-datatable>
+</mat-card-content>
+</mat-card>

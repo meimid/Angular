@@ -1,0 +1,53 @@
+<div class="session mat-indigo">
+  <div class="session-content">
+    <div class="session-wrapper">
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="text-xs-center pb-1">
+              <img src="assets/images/logo-dark.png" alt=""/>
+              <p class="mat-text-muted">{{'ADDESPECE' | translate }}.</p>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around">
+              <div class="pb-1">
+                <mat-input-container style="width: 100%">
+                  <input matInput placeholder="{{'numCat' | translate }}" [formControl]="form.controls['code']">
+                </mat-input-container>
+                <small *ngIf="form.controls['code'].hasError('required') && form.controls['code'].touched" class="mat-text-warn">{{'nameRequis' | translate }}.</small>
+              </div>
+			  <div class="pb-1">
+                <mat-input-container style="width: 100%">
+                  <input matInput placeholder="{{'ADDCATLabel' | translate }}" [formControl]="form.controls['lable']">
+                </mat-input-container>
+                <small *ngIf="form.controls['lable'].hasError('required') && form.controls['lable'].touched" class="mat-text-warn">{{'USERNAMEREQ' | translate }}.</small>
+              </div>
+			  <div class="pb-1">
+                <mat-input-container style="width: 100%">
+                  <input matInput placeholder="{{'CALIBRE' | translate }}" [formControl]="form.controls['calibre']">
+                </mat-input-container>
+                <small *ngIf="form.controls['calibre'].hasError('required') && form.controls['calibre'].touched" class="mat-text-warn">{{'USERNAMEREQ' | translate }}.</small>
+              </div>
+			  <div fxLayout="column" fxLayoutAlign="start center" class="mb-2">
+			  
+			  
+			  
+       
+      </div>
+              
+              
+			  <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >{{"SAVE" | translate}}</button>
+        <button mat-raised-button color="primary" (click)="redirect()">{{"Cancel" | translate}}</button>
+		
+		
+		
+		
+      </mat-card-actions>
+            </div>
+            
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

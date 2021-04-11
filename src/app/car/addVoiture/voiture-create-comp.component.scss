@@ -1,0 +1,38 @@
+:host {
+  margin-left: -5px;
+  margin-right: -5px;
+  margin-top: -5px;
+  display: block;
+}
+.mat-card-top {
+  margin-top: -64px;
+}
+[hidden] {
+  display: none !important;
+}
+mat-input-container.ng-touched.ng-invalid {
+
+  .mat-input-placeholder {
+    color: red;
+  }
+
+  .mat-input-underline {
+    border-top-width: 2px;
+    border-color: red;
+  }
+
+  .mat-input-ripple {
+    background-color: red;
+  }
+ mat-hint {
+    color: red;
+  }
+ 
+}
+ mat-hint {
+    color: red;
+  }
+  
+  .mat-tab-label{
+    justify-content: center; /* align items in Main Axis */
+}

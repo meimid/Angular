@@ -1,0 +1,37 @@
+<mat-card>
+ <mat-card-title align="center">{{'AccountList' | translate }}</mat-card-title>
+  
+
+ <div align="center">
+               <mat-form-field >
+    <input matInput    placeholder="{{'lookyByNum' | translate }} ..." required (keyup)='updateFilter($event)'>
+  </mat-form-field> 
+</div>
+  <mat-card-content>
+  
+  
+<ngx-datatable
+  class="material"
+  [rows]="rows"
+ 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="7" 
+  >
+   <ngx-datatable-column name="{{'ACCOUNTNUM' | translate }}" prop="numAccount" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'label' | translate }}" prop="libelle" ></ngx-datatable-column>
+    <ngx-datatable-column name="{{'Tel' | translate }}" prop="tel" ></ngx-datatable-column>
+  
+   <ngx-datatable-column name="{{'DATECREA' | translate }}" prop="dateCreation" ></ngx-datatable-column>
+ <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="numAccount" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		    <mat-icon   (click)="etatAccount(value)">edit</mat-icon>
+		   
+          </ng-template>   
+  </ngx-datatable-column>    
+</ngx-datatable>
+</mat-card-content>
+</mat-card>

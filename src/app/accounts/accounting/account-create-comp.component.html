@@ -1,0 +1,98 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>   
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div  fxLayout="row"  fxLayoutWrap="wrap"  fxLayoutAlign="center start">
+
+  <div fxFlex.gt-sm="55" fxFlex="100">  
+    <mat-card class="mat-card-top">
+      
+       
+		  <div align="center">
+		 <h1> {{'CreateAccount' | translate }}</h1>
+		  </div>
+		 
+          <mat-card-content>
+		  <form  fxLayout="column" (ngSubmit)="onSubmit(form.value)" [formGroup]="form" >
+		         <div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder=" {{'NOM' | translate }}  " [formControl]="form.controls['libelle']">
+	<mat-hint>{{'REQUIRE' | translate }}</mat-hint>
+  </mat-form-field>
+
+  
+  <mat-form-field>
+     <mat-select placeholder="{{'TypeCompte' | translate }}" #select="matSelect" [formControl]="form.controls['type']">
+    
+   <mat-option value="CCLIENT">{{"CLIENT"|translate}}</mat-option>
+   <mat-option value="CCHARGE">{{"DEPENSE"|translate}}</mat-option>	
+   <mat-option value="CFOURN">{{"FOURN"|translate}}</mat-option>
+   <mat-option value="CRECET">{{"RECETTE"|translate}}</mat-option>
+   <mat-option value="CBANQUE">{{"Banque"|translate}}</mat-option> 
+   <mat-option value="CDIVERS">{{"DIVERS"|translate}}</mat-option>   
+   
+             		   
+<mat-hint>{{'REQUIRE' | translate }}</mat-hint>			   
+  </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput  [readonly]="isValid" placeholder="{{'ACCOUNTNUM' | translate }}"  [formControl]="form.controls['numCompte']">
+	<mat-hint>{{'FACULTAIVE' | translate }}</mat-hint>
+  </mat-form-field> 
+  
+</div>
+           
+		   <div > 
+  
+   <mat-form-field>
+     <input matInput  placeholder="{{'Tel' | translate }}" [formControl]="form.controls['tel']">
+	 </mat-form-field> 
+  
+               <mat-form-field>
+    <input matInput  placeholder="{{'Adresse' | translate }}" [formControl]="form.controls['adresse']">
+  </mat-form-field> 
+             </div>
+           </form>
+          </mat-card-content>
+      
+      <hr>
+      <mat-card-actions>
+	  
+	   <div align="center">
+		   <button mat-raised-button class="shadow-none" color="primary" (click)="doSaveAccount()" >{{"SAVE" | translate}}</button>
+        <button mat-raised-button color="red" (click)="redirect()">{{"Cancel" | translate}}</button>
+		
+		  </div>
+     
+		
+		
+		
+      </mat-card-actions>
+	  
+	    <mat-card-content *ngIf="accountList?.length > 0 ">
+  
+  
+<ngx-datatable
+  class="material"
+  [rows]="accountList" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"  
+  >
+   <ngx-datatable-column name="{{'ACCOUNTNUM' | translate }}" prop="numAccount" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'label' | translate }}" prop="libelle" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'TypeCompte' | translate }}" prop="type" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value|translate}}
+		   
+          </ng-template>   
+  </ngx-datatable-column>
+  </ngx-datatable>
+</mat-card-content>
+	 
+    </mat-card>
+	 
+  </div>
+</div>

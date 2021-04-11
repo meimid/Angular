@@ -1,0 +1,113 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>   
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div  fxLayout="row"  fxLayoutWrap="wrap"  fxLayoutAlign="center start">
+
+  <div fxFlex.gt-sm="55" fxFlex="100">  
+    <mat-card class="mat-card-top">
+      
+       
+		  <div align="center" *ngIf="newProduct">
+		 <h1> {{'ADDPRODUCTS' | translate }}</h1>
+		  </div>
+		  <div align="center" *ngIf="!newProduct">
+		 <h1> {{'ModifyProduct' | translate }}</h1>
+		  </div>
+		
+		
+          <mat-card-content>
+		  <form  fxLayout="column" (ngSubmit)="onSubmit(form.value)" [formGroup]="form" >
+		         <div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder=" {{'labelPrd' | translate }}  " [formControl]="form.controls['libelle']">
+	<mat-hint>{{'REQUIRE' | translate }}</mat-hint>
+  </mat-form-field>
+
+  
+  <mat-form-field>
+    <input matInput [readonly]="!newProduct" placeholder=" {{'refPrd' | translate }}  " [formControl]="form.controls['refProduct']"  >
+	<mat-hint>{{'FACULTAIVE' | translate }}</mat-hint>
+  </mat-form-field>
+
+  
+  <mat-form-field>
+    <input matInput   placeholder="{{'CDEBARRE' | translate }}"  [formControl]="form.controls['codeBare']">
+	<mat-hint>{{'FACULTAIVE' | translate }}</mat-hint>
+  </mat-form-field> 
+  
+</div>
+           
+		   <div > 
+  
+   <mat-form-field>
+     <input matInput  placeholder="{{'prixSell' | translate }}" [formControl]="form.controls['price']">
+	 </mat-form-field> 
+  
+               <mat-form-field>
+    <input matInput  placeholder="{{'prixBuy' | translate }}" [formControl]="form.controls['priceA']">
+  </mat-form-field> 
+  
+    <mat-form-field>
+    <input matInput  placeholder="{{'QNTSEUIL' | translate }}" [formControl]="form.controls['seuilMin']">
+	  </mat-form-field> 
+    <mat-form-field>
+    <input matInput  placeholder="{{'QNTINIT' | translate }}" [formControl]="form.controls['balance']">
+	  </mat-form-field> 
+	  
+	   <mat-form-field>
+     <mat-select placeholder="{{'typeCat' | translate }}" #select="matSelect" [formControl]="form.controls['refCat']"  >
+    
+   <mat-option value="{{row.refCat}}" *ngFor="let row of category">{{row.libelle}}</mat-option>
+               		   
+  </mat-select>
+  </mat-form-field>
+  
+             </div>
+           </form>
+          </mat-card-content>
+      
+      <hr>
+      <mat-card-actions>
+	  
+	   <div align="center">
+		   <button mat-raised-button class="shadow-none" color="primary" (click)="doSaveProduct()" >{{"SAVE" | translate}}</button>
+        <button mat-raised-button color="red" (click)="redirect()">{{"Cancel" | translate}}</button>
+		
+		  </div>
+     
+		
+		
+		
+      </mat-card-actions>
+    </mat-card>
+	 
+  </div>
+</div>
+<div   >
+<mat-card-content *ngIf="products?.length > 0 ">
+<ngx-datatable
+  class="material"
+  [rows]="products" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  >
+   <ngx-datatable-column name="{{'refPrd' | translate }}" prop="refProduct" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'labelPrd' | translate }}" prop="libelle" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'qntDisp' | translate }}" prop="balance" ></ngx-datatable-column> 
+    <ngx-datatable-column name="{{'prixSell' | translate }}" prop="price" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'prixBuy' | translate }}" prop="priceA" ></ngx-datatable-column> 
+  <ngx-datatable-column name="{{'qntLow' | translate }}" prop="seuilMin" ></ngx-datatable-column>  
+ <ngx-datatable-column name="{{'ModifyProduct' | translate }}" prop="refProduct" >
+           <ng-template  let-row="row"  ngx-datatable-cell-template>
+		    <mat-icon   (click)="updateProduct(row)">edit</mat-icon>
+		   
+          </ng-template>   
+  </ngx-datatable-column>  
+   
+</ngx-datatable>
+</mat-card-content>
+</div>

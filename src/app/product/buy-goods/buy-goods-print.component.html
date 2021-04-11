@@ -1,0 +1,130 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <div fxFlex="100" fxLayout="column">
+    <div fxLayout="row">
+      <mat-card fxFlex>
+        <mat-card-actions class="pr-2">
+          <button mat-button mat-raised-button color="primary" (click)="print()">{{'Pull' | translate}}</button>
+          <button mat-button mat-raised-button color="primary" routerLink="/product/buy-goods">{{'Back' | translate}}</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div class="print-container" id="ppp">
+
+  <div fxLayout="row" fxLayoutWrap="wrap">
+    <!-- from address-->
+    <div fxFlex="33">
+      <p>
+        PHP Point Of Sale, Inc
+        <br> Default
+        <br> 123 Nowhere street
+        <br> 555-555-5555
+      </p>
+    </div>
+    <!--  sales-->
+    <div fxFlex="33">
+      Sales Receipt
+      <br>
+      <strong>12/02/2017 09:02 pm</strong>
+      <br>
+      <span>Sale ID:</span>POS 32
+      <br>
+      <span>Employee:</span>John Doe
+    </div>
+    <!-- to address-->
+    <div fxFlex="33">
+    </div>
+    <!-- delivery address-->
+    <div fxFlex="100">
+    </div>
+  </div>
+  <hr>
+  <div fxLayout="row" class="padding-5">
+    <div fxFlex="25">
+      Item Name
+    </div>
+    <div fxFlex="25">
+      Price
+    </div>
+    <div fxFlex="25">
+      Qty.
+    </div>
+    <div fxFlex="25">
+      Total
+    </div>
+  </div>
+  <hr>
+  <div fxLayout="row" *ngFor="let row of bill.products" class="table-row-border">
+    <div fxFlex="25">
+      <strong>{{row.libelle}}</strong>
+      <br/>
+      <span class="mat-text-muted">{{row.refProduct}}</span>
+    </div>
+    <div fxFlex="25">
+      <strong>{{row.price }}</strong>
+    </div>
+    <div fxFlex="25">
+      <strong>{{row.qnt}}</strong>
+    </div>
+    <div fxFlex="25">
+      <strong>{{ (row.price * row.qnt) }}</strong>
+    </div>
+  </div>
+
+  <div fxLayout="row">
+    <div fxFlex="25">
+      {{netTotal}}
+    </div>
+    <div fxFlex="25">
+      Sub Total
+    </div>
+    <div fxFlex="25">
+    </div>
+    <div fxFlex="25">
+    </div>
+  </div>
+
+  <div fxLayout="row">
+    <div fxFlex="25">
+      {{bill.products.length}}
+    </div>
+    <div fxFlex="25">
+      Number of items sold
+    </div>
+    <div fxFlex="25">
+    </div>
+    <div fxFlex="25">
+    </div>
+  </div>
+
+  <div fxLayout="row">
+    <div fxFlex="25">
+      {{bill.customer.paid}}
+    </div>
+    <div fxFlex="25">
+      {{bill.customer.typePaiement}}
+    </div>
+    <div fxFlex="25">
+      Payment Type
+    </div>
+    <div fxFlex="25">
+    </div>
+  </div>
+
+
+  <div fxLayout="row">
+    <div fxFlex="25">
+      {{netTotal - bill.customer.paid}}
+    </div>
+    <div fxFlex="25">
+      Change Due
+    </div>
+    <div fxFlex="25">
+    </div>
+    <div fxFlex="25">
+    </div>
+  </div>
+
+</div>

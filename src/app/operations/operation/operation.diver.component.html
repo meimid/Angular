@@ -1,0 +1,67 @@
+<mat-card>
+  <mat-card-title align="center">{{'OPERATION' | translate }}</mat-card-title>
+  <form [formGroup]="form">
+    <mat-card-content> 
+      
+	  <div align="center">
+       
+	   
+	   <mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="{{'DATE' | translate }}"  [formControl]="form.controls['date']" >
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+  
+   
+ </div>
+	 
+	    <div class="mb-1">
+       {{'CompteACrediter' | translate }}
+	      <acc-dialog (changeNumCompte)="getNotificationTo($event)" [resteAccount]="reset"  ></acc-dialog>
+		  </div>
+		  <div align="center">
+       <mat-form-field>
+            <input matInput placeholder="{{'MONTANT' | translate }}" [formControl]="form.controls['montant']"  pInputText (keypress)="onlyNumberKey($event)">
+          <span matSuffix>.00</span>
+		   <mat-error>{{'MONTANTREQ' | translate }} </mat-error>
+		 </mat-form-field>
+         <mat-form-field>
+		<input matInput placeholder="{{'REMARQUE' | translate }}" [formControl]="form.controls['remarque']" >
+		</mat-form-field>
+        </div>
+      
+      
+      
+
+      <div class="mb-1">
+       {{'CompteADebiter' | translate }}
+          <acc-dialog (changeNumCompte)="getNotificationFrom($event)"  ></acc-dialog>
+       
+        </div>
+
+        <div align="center">
+     <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid"  (click)="doSaveAccount()">{{'SAVE' | translate }}</button>
+	 </div>
+    </mat-card-content>
+  </form>
+  
+   <mat-card-content *ngIf="showGreeting">
+    <ngx-datatable fxFlex [rows]="AllOperation" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="50" [scrollbarV]="false" [scrollbarH]="false" class="material primary striped">
+	                              <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" [flexGrow]="1" > 
+                               <ng-template let-value="value" ngx-datatable-cell-template>
+		                        {{value  | date: 'dd/MM/yyyy'}}
+                            </ng-template> 
+							</ngx-datatable-column>
+							<ngx-datatable-column name="{{'label' | translate }}" prop="name"  [flexGrow]="1" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'TypeCompte' | translate }}" prop="type.libelle" [flexGrow]="1"  ></ngx-datatable-column> 
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montant" [flexGrow]="1"  ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" [flexGrow]="1"  ></ngx-datatable-column>
+  
+          
+                            </ngx-datatable>
+   
+   
+  
+   </mat-card-content>
+   
+</mat-card>

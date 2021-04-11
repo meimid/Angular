@@ -1,0 +1,24 @@
+.bg-orange{
+	background-color : #FF5722;	
+}
+datatable-header-cell {
+	background-color : aliceblue;
+}
+
+.table-row-border{
+	border-bottom: 1px dashed #c9d0df;
+}
+.print-container{
+	background-color: #fff;
+	padding: 15px;
+}
+.padding-5{
+	padding:5px;
+}
+
+
+@media print {
+	.table-row-border{
+		border-bottom: 1px #c9d0df;
+	}
+  }

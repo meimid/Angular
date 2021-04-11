@@ -1,0 +1,76 @@
+.datatable,
+.datatable > div,
+.datatable.fixed-header .datatable-header .datatable-header-inner {
+  height: 100%;
+}
+
+.only-for-print{
+  display: none !important;
+}
+.pionter{
+cursor: pointer;
+}
+
+.table-row-border{
+border-bottom: 1px dashed #c9d0df;
+}
+
+.product-grid-show{
+max-height: 250px;
+overflow-y: auto;
+}
+.product-width{
+min-width: 150px;
+}
+
+.margin-bottom-0{
+  margin-bottom: 0px !important;
+}
+
+.padding-right-1{
+  padding-right: 1rem !important;
+}
+.text-align-center{
+  text-align: center;
+}
+.width-200{
+  width: 200px;
+}
+@media print
+{
+    #pager,
+    form,
+    .no-print
+    {
+        display: none !important;
+        height: 0;
+    }
+
+
+    .no-print, .no-print *{
+        display: none !important;
+        height: 0;
+    }
+
+    .only-for-print{
+        display: block !important;
+    }
+
+      #section-to-print, #section-to-print * {
+        visibility: visible;
+      }
+      #section-to-print {
+        width: 100% !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+	  
+	  .progressBarContainer
+
+{
+
+display: none !important;
+
+}
+}

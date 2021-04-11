@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-title align="center">{{'LISTOFDEBITEUR' | translate }}</mat-card-title>
+  <div align="center">
+		 <h1> {{'TOTAL' | translate }}</h1>
+		  <h1> {{sumCont }}</h1>
+  </div>
+  <mat-card-content>
+<ngx-datatable
+  class="material"
+  [rows]="rows"
+ 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit"
+  >
+   <ngx-datatable-column name="{{'ACCOUNTNUM' | translate }}" prop="numAccount" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'label' | translate }}" prop="libelle" ></ngx-datatable-column>  
+   <ngx-datatable-column name="{{'MNTDEBIT' | translate }}" prop="balance" ></ngx-datatable-column> 
+</ngx-datatable>
+
+ </mat-card-content>
+</mat-card>

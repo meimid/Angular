@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-title align="center">{{'creteExternalUser' | translate }}</mat-card-title>
+  
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start center" class="mb-2" fxLayoutWrap="wrap" id="print-section" >
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        
+               <mat-form-field  >
+               <input matInput  mdInput  placeholder="{{'ACCOUNTNUM' | translate }}" [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl">
+               </mat-form-field> 
+		    <button mat-raised-button color="primary" (click)="createUser()" [disabled]="currentNumCompte==''" >{{"SAVE" | translate}}</button>
+        <button mat-raised-button color="primary" (click)="redirect()">{{"Cancel" | translate}}</button>
+		
+		  
+		  
+      </div>
+    
+    </div>
+	<mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn" >
+      <mat-option *ngFor="let state of reactiveAccounts | async" [value]="state">
+        <span>{{ state.libelle }}</span>
+        <span> ({{state.numAccount}}) </span>
+      </mat-option>
+    </mat-autocomplete>
+	 </mat-card-content>
+    
+</mat-card>

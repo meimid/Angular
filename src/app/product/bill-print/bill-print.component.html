@@ -1,0 +1,97 @@
+<div fxLayout="row" fxLayoutWrap="wrap" id="printDoc">
+    <div fxFlex="100" fxLayout="column">
+        <div fxLayout="row">
+            <mat-card fxFlex>
+                <mat-card-actions class="pr-2">
+                    <button mat-button mat-raised-button color="primary" (click)="print()">{{'Pull' | translate}}</button>
+                    <button mat-button mat-raised-button color="primary" routerLink="/product/sell-goods">{{'Back' | translate}}</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div fxLayout="row">
+            <mat-card fxFlex>
+                <mat-card-content fxLayout="row" fxLayoutAlign="center" class="my-0">
+<!--                     <div fxFlex="33" fxLayout="column">
+                        <div>
+                            <img *ngIf="showHeader" src="/assets/images/metaware_logo.png" height="25px">
+                        </div>
+                        <div>
+                            <button mat-button (click)="showHeader=!showHeader;" class="mr-1">{{showHeader?'Hide':'Show'}}</button>
+                        </div>
+                    </div> -->
+                    <div fxFlex="33" fxLayout="column" fxLayoutAlign="center center">
+                        <h1 class="my-1">{{'Bill' | translate}}</h1>
+                        <span fxLayout="row">
+                            <span class="my-0 ml-1 text-lg text-weight-bold">77777 Phone</span>
+                            <span class="my-0 text-lg text-weight-bold">NKC SOFT LABS</span>
+                        </span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card>
+                <mat-card-content>
+                    <div fxLayout="row">
+                        <div fxFlex fxLayout="column">
+                            <div fxLayout="row"> 
+                                <span fxFlex class="mx-1 text-weight-bold">Customer Name: </span>
+                                <span fxFlex class="text-weight-bold">{{bill.customer.name}}</span>
+                            </div>
+                            <div fxLayout="row"> 
+                                <span  fxFlex class="mx-1 text-weight-bold">Detail: </span>
+                                <span fxFlex class="text-weight-bold">{{bill.customer.detail}}</span>
+                            </div>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <div fxLayout="row"> 
+                                <span fxFlex class="mx-1 text-weight-bold">History: </span>
+                                <span fxFlex class="text-weight-bold">{{bill.customer.date}}</span>
+                            </div>
+                            <div fxLayout="row">
+                                <span fxFlex class="mx-1 text-weight-bold">Quality of Payment: </span>
+                                <span fxFlex class="text-weight-bold">{{bill.customer.quality}}</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card>
+                <mat-card-content>
+                    <div>
+                        <ngx-datatable fxFlex [rows]="bill.products" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="50" [scrollbarV]="false" [scrollbarH]="false" class="material striped">
+                            <ngx-datatable-column [flexGrow]="1" name="Product Name"></ngx-datatable-column>
+                            <ngx-datatable-column [flexGrow]="1" name="Price"></ngx-datatable-column>
+                            <ngx-datatable-column [flexGrow]="1" name="Quantity"></ngx-datatable-column>
+                            <ngx-datatable-column [flexGrow]="1" name="Total"></ngx-datatable-column>
+                            <!-- <ngx-datatable-column [flexGrow]="1" name="Actions">
+                                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                                    <button mat-button color="red" (click)="delete(row)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </ng-template>
+                            </ngx-datatable-column> -->
+                        </ngx-datatable>
+                    </div>
+                    <div>
+                        <div fxLayout="row" *ngIf="netTotal > 0" class="pr-0 pl-1">
+                            <div fxFlex="74" fxLayout="column" dir="ltr" class="">
+                                <div class="py-1 pl-1 text-weight-bold border">Net Total</div>
+                                <div class="py-1 pl-1 text-weight-bold border">Tax %</div>
+                                <div class="py-1 pl-1 text-weight-bold border">Total</div>
+                            </div>
+                            <div fxFlex="26" fxLayout="column" class="">
+                                <div class="py-1 pr-1 text-weight-bold border">{{netTotal}}</div>
+                                <div class="py-1 pr-1 text-weight-bold border">{{tax}}</div>
+                                <div class="py-1 pr-1 text-weight-bold border">{{grandTotal}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

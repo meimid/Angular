@@ -1,0 +1,336 @@
+<mat-card>
+  <mat-card-title align="center">{{'ACCCAISSE' | translate }}</mat-card-title>
+  <mat-card-content>
+  
+  
+  
+<mat-form-field>
+  <input matInput [matDatepicker]="myDatepicker1"  placeholder=" {{'DATE2' | translate }}" [(ngModel)]="from" (ngModelChange)="setMomentDt2($event)">
+  <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepicker1 ></mat-datepicker>
+</mat-form-field>
+
+
+
+<mat-form-field>
+  <input matInput [matDatepicker]="myDatepicker2"  placeholder=" {{'DATE1' | translate }}" [(ngModel)]="to"  (ngModelChange)="setMomentDt1($event)">
+  <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepicker2 ></mat-datepicker>
+</mat-form-field>
+
+		  
+		  <label >{{'total.in' | translate }} {{soldeIn }}</label>
+		   
+		   <label >{{'total.out' | translate }} {{soldeOut }}</label>
+		   
+		   <label >{{'solde' | translate }} {{solde }}</label>
+		   
+		   <label >{{'soldeCredit' | translate }} {{soldeCrt }}</label>
+		 <div align="center" *ngIf="!modePrint">
+         <mat-card-actions >        
+		<button mat-raised-button color="primary" (click)="archive()" >{{"archive" | translate}}</button>
+        </mat-card-actions>
+           </div>
+		
+   
+	<div align="center" *ngIf="!modePrint">
+	<mat-input-container style="width: 50%" class="mb-1" >
+  <input  matInput required (keyup)='updateFilter($event)' placeholder="{{'lookyByNum' | translate }}" >
+  
+</mat-input-container>
+</div>
+      <mat-tab-group *ngIf="!modePrint" >
+        <mat-tab label="{{'IN' | translate }}">
+          <mat-card-content>
+           <ngx-datatable
+  class="material"
+  [rows]="rowsIn"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offsetIn"
+  [limit]="limitIn"
+  (page)='onPageIn($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" > 
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   
+  <ngx-datatable-column name="{{'AccountL' | translate }}" prop="numCompte" ></ngx-datatable-column>   
+   <ngx-datatable-column name="{{'label' | translate }}" prop="name" ></ngx-datatable-column>
+    <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantDebit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+           <ngx-datatable-column name="{{' ' }}" prop="id" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		   <mat-icon   (click)="deleteOperation(value)">delete</mat-icon>
+          </ng-template>   
+  </ngx-datatable-column>
+  
+</ngx-datatable>
+          </mat-card-content>
+		  
+        </mat-tab>
+		
+		
+		<mat-tab label="{{'OUT' | translate }}">
+           <mat-card-content>
+           <ngx-datatable
+  class="material"
+  [rows]="rowsOut"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'" 
+  [offset]="offsetOut"
+  [limit]="limitOut"
+  (page)='onPageOut($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" >
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   <ngx-datatable-column name="{{'AccountL' | translate }}" prop="numCompte" ></ngx-datatable-column>
+    <ngx-datatable-column name="{{'label' | translate }}" prop="name" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantCredit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+    <ngx-datatable-column name=" " prop="id" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		   <mat-icon   (click)="deleteOperation(value)">delete</mat-icon>
+          </ng-template>   
+  </ngx-datatable-column>
+  
+</ngx-datatable>
+          </mat-card-content>
+		  
+         
+        </mat-tab>
+		
+		
+		<mat-tab label="{{'SELLBYCREDIT' | translate }}">
+           <mat-card-content>
+           <ngx-datatable
+  class="material"
+  [rows]="rowsCrt"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [count]="countCrt"
+  [offset]="offsetCrt"
+  [limit]="limitCrt"
+  (page)='onPageCrt($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" >
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   <ngx-datatable-column name="{{'AccountL' | translate }}" prop="numCompte" ></ngx-datatable-column>
+    <ngx-datatable-column name="{{'label' | translate }}" prop="name" ></ngx-datatable-column> <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantCredit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantDebit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+   
+  
+</ngx-datatable>
+          </mat-card-content>
+         
+        </mat-tab>
+		<mat-tab label="{{'BUYBYCREDIT' | translate }}">
+           <mat-card-content>
+          <ngx-datatable 
+		  class="material"
+  [rows]="rowsCrtA"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+    [count]="countCrtA"
+  [offset]="offsetCrtA"
+  [limit]="limitCrtA"
+  (page)='onPageCrtA($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" >
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   <ngx-datatable-column name="{{'AccountL' | translate }}" prop="numCompte" ></ngx-datatable-column>
+    <ngx-datatable-column name="{{'label' | translate }}" prop="name" ></ngx-datatable-column> <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantCredit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+   
+  
+</ngx-datatable>
+          </mat-card-content>
+         
+        </mat-tab>		
+		
+		 <mat-tab label="{{'BNQ' | translate }}">
+          <mat-card-content>
+           <ngx-datatable
+  class="material"
+  [rows]="rowsBN"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+   [offset]="offsetBN"
+  [limit]="limitBN"
+  (page)='onPageBN($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" > 
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>   
+  <ngx-datatable-column name="{{'fromDebit' | translate }}" prop="toAc" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'label' | translate }}" prop="toLib" >
+    <ng-template let-value="value" ngx-datatable-cell-template>
+		  {{value|translate}}
+          </ng-template>
+   </ngx-datatable-column> 
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montant" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+           <ngx-datatable-column name="{{' ' }}" prop="id" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		   <mat-icon   (click)="deleteOperation(value)">delete</mat-icon>
+          </ng-template>   
+  </ngx-datatable-column>
+  
+</ngx-datatable>
+          </mat-card-content>
+		  
+        </mat-tab>
+		
+		 <mat-tab label="{{'DIV' | translate }}">
+          <mat-card-content>
+           <ngx-datatable
+  class="material"
+  [rows]="rowsDV"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+   [offset]="offsetDV"
+  [limit]="limitDV"
+  (page)='onPageDV($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" > 
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>   
+   <ngx-datatable-column name="{{'fromDebit' | translate }}" prop="toAc" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'label' | translate }}" prop="toLib" >
+    <ng-template let-value="value" ngx-datatable-cell-template>
+		  {{value|translate}}
+          </ng-template>
+   </ngx-datatable-column> 
+    <ngx-datatable-column name="{{'fromCrediteur' | translate }}" prop="fromAc" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'label' | translate }}" prop="fromLib" >
+    <ng-template let-value="value" ngx-datatable-cell-template>
+		  {{value|translate}}
+          </ng-template>
+   </ngx-datatable-column> 
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantDebit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+           <ngx-datatable-column name="{{' ' }}" prop="id" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		   <mat-icon   (click)="deleteOperation(value)">delete</mat-icon>
+          </ng-template>   
+  </ngx-datatable-column>
+  
+</ngx-datatable>
+          </mat-card-content>
+		  
+        </mat-tab>
+      </mat-tab-group>
+  <div fxLayout="row">
+            <mat-card fxFlex>
+                <mat-card-actions class="pr-3">
+                    <button mat-button mat-raised-button color="primary" (click)="signUp()" *ngIf="modePrint">{{'print' | translate}}</button>
+                    <button mat-button mat-raised-button color="primary" (click)="modePrint=true" *ngIf="!modePrint"> {{'open.print' | translate}}</button>
+					 <button mat-button mat-raised-button color="primary" (click)="modePrint=false"*ngIf="modePrint">{{'retour' | translate}}</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+  </mat-card-content>
+</mat-card>
+<div>
+ <mat-card-title align="center" *ngIf="modePrint">{{'operqtion.in' | translate }}</mat-card-title>
+ </div>
+<mat-card *ngIf="modePrint">  
+        <ngx-datatable
+  class="material"
+  [rows]="AllRowsIn"
+  [columnMode]="'force'"
+ 
+ [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="countIn"
+  
+  (page)='onPageIn($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" > 
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   
+   <ngx-datatable-column name="{{'label' | translate }}" prop="name" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'TypeCompte' | translate }}" prop="type.libelle" ></ngx-datatable-column> 
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantDebit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+           
+</ngx-datatable>
+<div>
+ <mat-card-title align="center">{{'operqtion.out' | translate }}</mat-card-title>
+ </div>
+<mat-card *ngIf="modePrint">
+ <ngx-datatable class="material"
+  [rows]="AllRowsOut"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+   [count]="countOut"
+ 
+  
+  (page)='onPageIn($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" > 
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   
+   <ngx-datatable-column name="{{'label' | translate }}" prop="name" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'TypeCompte' | translate }}" prop="type.libelle" ></ngx-datatable-column> 
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantCredit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+    
+  
+</ngx-datatable>
+</mat-card>
+<div>
+ <mat-card-title align="center" *ngIf="modePrint">{{'operqtion.credit' | translate }}</mat-card-title>
+ </div>
+<mat-card *ngIf="modePrint">
+<ngx-datatable
+  class="material"
+  [rows]="AllRowsCr"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  (page)='onPageCrt($event)'>
+   <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" >
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   <ngx-datatable-column name="{{'AccountL' | translate }}" prop="name" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montantDebit" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+   
+  
+</ngx-datatable>
+</mat-card>

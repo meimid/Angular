@@ -1,0 +1,36 @@
+<mat-card class="demo-dialog-card">
+
+
+
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center" fxLayoutAlign.xs="center center" class="mb-2">
+      <div fxFlex.gt-xs="43" flex="100">
+        <mat-input-container style="width: 100%">
+          <input type="text" placeholder="{{'carton' | translate }}" aria-label="Persoonne" matInput [formControl]="form.controls['compte']"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selectedItemChange($event)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              <span>{{ option.libelle }}</span>
+              <span> ({{option.refProduct}}) </span>
+  
+            </mat-option>
+          </mat-autocomplete>
+        </mat-input-container>
+      </div>
+      <div fxFlex="2" fxShow [fxShow.xs]="false"></div>
+      <div fxFlex.gt-xs="35" flex="100">
+        <mat-input-container style="width: 100%">
+          <input [(ngModel)]="BareCodevalue" type="text" placeholder="{{'CDEBARRE' | translate }}" aria-label="Persoonne" matInput autofocus="true" (keypress)="getBareCode($event)">
+        </mat-input-container>
+      </div>
+      <div fxFlex="2" fxShow [fxShow.xs]="false"></div>
+      <div fxFlex.gt-xs="20" flex="100">
+        <button mat-raised-button color="primary" (click)="showGrid()">{{ (gridShowHideFlag ? 'Hide_Grid' : 'Show_Grid') | translate }}</button>
+      </div>
+      
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

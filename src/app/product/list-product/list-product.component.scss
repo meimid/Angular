@@ -1,0 +1,36 @@
+.datatable,
+.datatable > div,
+.datatable.fixed-header .datatable-header .datatable-header-inner {
+  height: 100%;
+}
+
+@media print
+{
+    #pager,
+    form,
+    .no-print
+    {
+        display: none !important;
+        height: 0;
+    }
+
+
+    .no-print, .no-print *{
+        display: none !important;
+        height: 0;
+    }
+
+    .only-for-print{
+        display: block !important;
+    }
+
+      #section-to-print, #section-to-print * {
+        visibility: visible;
+      }
+      #section-to-print {
+        width: 100% !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+}

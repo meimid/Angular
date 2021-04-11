@@ -1,0 +1,32 @@
+[hidden] {
+  display: none !important;
+}
+::ng-deep .mat-input-underline {
+    display: none;
+}
+@media print
+{
+    .no-print
+    {
+        display: none !important;
+        height: 0;
+    }
+
+
+    .no-print, .no-print *{
+        display: none !important;
+        height: 0;
+    }
+
+   .only-for-print{
+    display: none !important;
+}
+      #section-to-print, #section-to-print * {
+        visibility: visible;
+      }
+     
+}
+
+.only-for-print{
+    display: none !important;
+}

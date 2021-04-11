@@ -1,0 +1,66 @@
+<div class="session mat-indigo">
+  <div class="session-content">
+    <div class="session-wrapper">
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="text-xs-center pb-1">
+              <img src="assets/images/logo-dark.png" alt=""/>
+              <p class="mat-text-muted">{{'CREATEANEWUSER' | translate }}.</p>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-around">
+              <div class="pb-1">
+                <mat-input-container style="width: 100%">
+                  <input matInput placeholder="{{'label' | translate }}" [formControl]="form.controls['name']">
+                </mat-input-container>
+                <small *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="mat-text-warn">{{'nameRequis' | translate }}.</small>
+              </div>
+			  <div class="pb-1">
+                <mat-input-container style="width: 100%">
+                  <input matInput placeholder="{{'USERNAME' | translate }}" [formControl]="form.controls['userLogin']">
+                </mat-input-container>
+                <small *ngIf="form.controls['userLogin'].hasError('required') && form.controls['userLogin'].touched" class="mat-text-warn">{{'USERNAMEREQ' | translate }}.</small>
+              </div>
+		   <div class="pb-1">
+          <mat-input-container style="width: 100%">
+            <input matInput placeholder="{{'EMAIL' | translate }}" [formControl]="form.controls['email']">
+          </mat-input-container>
+          <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">{{'USERNAMEREQ' | translate }}.</small>
+        </div>
+
+
+  		  
+			  
+       
+    
+              <div class="pb-1">
+                <mat-input-container style="width: 100%">
+                  <input matInput type="password" placeholder="{{'PASSWORD' | translate }}" [formControl]="form.controls['password']">
+                </mat-input-container>
+                <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="mat-text-warn">{{'PASSWORDREQ' | translate }}.</small>
+              </div>
+			  
+			  <div class="pb-1">
+                <mat-input-container style="width: 100%">
+                  <input matInput type="password" placeholder="{{'confimePas' | translate }}" [formControl]="form.controls['newPassword']">
+                </mat-input-container>
+                <small *ngIf="form.controls['newPassword'].hasError('required') && form.controls['newPassword'].touched" class="mat-text-warn">{{'PASSWORDREQ' | translate }}.</small>
+              </div>
+			
+              
+			  <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >{{"SAVE" | translate}}</button>
+        <button mat-raised-button color="primary" (click)="redirect()">{{"Cancel" | translate}}</button>
+		
+		
+		
+		
+      </mat-card-actions>
+            </div>
+            
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

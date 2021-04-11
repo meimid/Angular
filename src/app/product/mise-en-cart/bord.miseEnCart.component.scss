@@ -1,0 +1,57 @@
+:host {
+  margin-left: -5px;
+  margin-right: -5px;
+  margin-top: -5px;
+  display: block;
+}
+.mat-card-top {
+  margin-top: -64px;
+}
+[hidden] {
+  display: none !important;
+}
+
+::ng-deep .mat-input-underline {
+    display: none;
+}
+.only-for-print{
+    display: none !important;
+}
+@media print
+{
+    #pager,
+    form,
+    .no-print
+    {
+        display: none !important;
+        height: 0;
+    }
+
+
+    .no-print, .no-print *{
+        display: none !important;
+        height: 0;
+    }
+
+    .only-for-print{
+        display: block !important;
+    }
+
+      #section-to-print, #section-to-print * {
+        visibility: visible;
+      }
+      #section-to-print {
+        width: 100% !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+	  
+	  .progressBarContainer
+
+{
+
+display: none !important;
+
+}
+}

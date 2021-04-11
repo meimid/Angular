@@ -1,0 +1,53 @@
+<mat-card>
+  <mat-card-title align="center">{{'ARCHIVECOMPTE' | translate }}</mat-card-title>
+  
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutWrap="wrap">
+      <div fxFlex.gt-sm="50" fxFlex="100">
+        
+        <p>
+         
+		   <mat-form-field>
+    <input matInput  mdInput  placeholder=" {{'ACCOUNTNUM' | translate }}" [matAutocomplete]="reactiveAuto" [formControl]="stateCtrl">
+  </mat-form-field> 
+        </p>
+
+      </div>
+    
+    </div>
+
+    <mat-autocomplete #reactiveAuto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let state of reactiveAccounts | async" [value]="state">
+        <span>{{ state.libelle }}</span>
+        <span> ({{state.numAccount}}) </span>
+      </mat-option>
+    </mat-autocomplete>
+	<mat-card>
+      <mat-tab-group >
+        <mat-tab >
+		 <ngx-datatable
+  class="material"
+  [rows]="rows"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit"
+  >
+    <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" > 
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'CREDIT' | translate }}" prop="montantCredit" ></ngx-datatable-column> 
+   <ngx-datatable-column name="{{'DEBIT' | translate }}" prop="montantDebit" ></ngx-datatable-column>    
+   </ngx-datatable>
+	</mat-tab >
+      </mat-tab-group >
+	</mat-card>
+  
+
+ </mat-card-content>
+</mat-card>

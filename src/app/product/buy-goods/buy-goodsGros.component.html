@@ -1,0 +1,318 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column" fxLayoutWrap [@slideInOut]="gridShowHideFlag" class="product-grid-show no-print">
+  <mat-card class="pionter product-width" fxFlex.gt-xs="24" fxFlex="100" *ngFor="let product of AllProductList" (click)="getNotification(product)" >
+    <mat-card-content>
+      <div fxLayout="column" class="height-100">
+        <div>
+          {{ product.libelle}}
+        </div>
+        <div>
+          <div>(${{ product.price }})</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="center start" fxLayoutAlign.xs="center center" fxLayout.xs="column" class="no-print">
+
+  <div fxFlex.gt-xs="34" fxFlex="100">
+    <mat-card class="no-print">
+      <mat-card-actions class="padding-right-1 no-print">
+        <button mat-button mat-raised-button color="primary" (click)="signUp()" [disabled]="submitBtnDisaple" *ngIf="modifiedFact">{{'SAVE' | translate}}</button>
+        <button mat-button mat-raised-button color="primary" (click)="print()" [disabled]="submitBtnDisaple"> {{'print' | translate}}</button>
+		<button mat-button mat-raised-button *ngIf="!modifiedFact" color="primary" (click)="restAll()" [disabled]="submitBtnDisaple"> {{'newFact' | translate}}</button>
+		
+        <!-- routerLink="/product/bill-print" -->
+      </mat-card-actions>
+      <hr>
+      <mat-card-content>
+        <div class="mb-1">
+          <h1 class="mt-0 " >
+            <strong>{{'facture' | translate }} {{refFacture}} </strong>
+          </h1>
+        </div>
+
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <div fxFlex.gt-xs="100" fxFlex="100">
+            <h4 class="my-0">
+              <span class="mb-1 no-print" >
+                <acc-dialog (changeNumCompte)="getUpdateNumcompte($event)" [resteAccount]="restAccout"  ></acc-dialog>
+				
+              </span>
+            </h4>
+          </div>
+
+          <div fxFlex.gt-xs="100" fxFlex="100" class="text-sm-right text-xs-left">
+            <h4 class="my-0">{{socite.libelle}}</h4>
+            <div fxLayout="column">
+              <span>{{'Tel' | translate }}{{socite.tel}}</span>
+              <span>{{'Adresse' | translate }}{{socite.adresse}}</span>
+              <span>{{socite.email}}</span>
+            </div>
+          </div>
+
+
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="mt-1 mb-1">
+            <div fxLayout="column">
+              <span>{{'DATE' | translate }}: {{todayDate}}</span>
+              <span class="no-print">
+                {{'type.paiement' | translate }}
+                <mat-radio-group [(ngModel)]="typePaiement">
+                  <mat-radio-button value="ESPECE">{{'ESPECE' | translate }}</mat-radio-button>
+                  <mat-radio-button value="CREDIT">{{'CREDITS' | translate }}</mat-radio-button>
+                </mat-radio-group>
+              </span>
+              <div class="only-for-print" *ngIf="typePaiement=='ESPECE'">
+                <h6 class="text-uppercase text-sm ma-0 text-bold"> {{'type.paiement' | translate }} {{'ESPECE' | translate }}</h6>
+              </div>
+              <div class="only-for-print" *ngIf="typePaiement=='CREDIT'">
+                {{'type.paiement' | translate }} {{'CREDITS' | translate }}
+              </div>
+            </div>
+          </div>
+
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="mb-1" *ngIf="tax >0">
+            <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal</h6>
+            <h1 class="ma-0">{{getSubTotal() | currency:' ':'symbol':'1.2-2'}}</h1>
+          </div>
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="mb-1 text-sm-right text-md-left" *ngIf="tax >0">
+            <h6 class="text-uppercase text-md ma-0 text-bold">Tax (15%)</h6>
+            <h1 class="ma-0">{{getCalculatedTax() | currency:' ':'symbol':'1.2-2'}}</h1>
+          </div>
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="mb-1" *ngIf="tax >0">
+            <h6 class="text-uppercase text-md ma-0 text-bold">Discount</h6>
+            <h1 class="ma-0">$0.00</h1>
+          </div>
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="mb-1 text-xs-left text-sm-right">
+            <h6 class="text-uppercase text-sm ma-0 text-bold">{{'TOTAL' | translate }}</h6>
+            <h1 class="ma-0 mat-text-accent">{{ getTotal() | currency:' ':'symbol':'1.2-2'}}</h1>
+          </div>
+
+          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="mb-1 text-xs-left text-sm-right">
+            <span class="mb-1 no-print">
+              <mat-checkbox [(ngModel)]="livred">{{'lable.livred' | translate }}</mat-checkbox>
+            </span>
+          </div>
+
+
+        </div>
+      </mat-card-content>
+
+
+    </mat-card>
+  </div>
+
+
+  <div fxFlex.gt-xs="64" fxFlex="100" class="no-print">
+    <div class="no-print" *ngIf="modifiedFact">
+        <prd-auto (changeProduct)="getNotification($event)" (gridShowHide)="gridShowHide($event)" (bareCodeInsert)="bareCodeInsert($event)"></prd-auto>
+
+
+    </div>
+
+
+    <ngx-datatable class="material" [rows]="products" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'">
+      <ngx-datatable-column name="{{'labelPrdG' | translate }}" [flexGrow]="4">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <strong>{{row.libelle}}</strong>
+          <br/>
+          <span class="mat-text-muted">{{row.refProduct}}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'prixSell' | translate }}" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+
+          <input [(ngModel)]="row.price" style="width:50px;" (keypress)="onlyNumberKey($event)">
+
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'lable.quantity' | translate }}" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <strong>
+            <input [(ngModel)]="row.qnt" style="width:50px;" (keypress)="onlyNumberKey($event)">
+          </strong>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'TOTAL' | translate }}" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <strong>{{ (row.price * row.qnt) }}</strong>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="" [flexGrow]="2">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <strong>
+            <button mat-raised-button color="primary" (click)="delete(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </strong>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+
+  </div>
+
+</div>
+
+
+
+<div class="print-container only-for-print">
+  <!-- print-container only-for-print -->
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="width-200">
+      <div fxFlex="30" >{{'facture' | translate }}</div>
+      <div fxFlex="70" >{{refFacture}}</div>
+    </div>
+
+    <div class="width-200">
+      <div fxFlex="100">{{socite.libelle}}</div>
+    </div>
+
+    <div class="width-200">
+      <div fxFlex="30">{{'Tel' | translate }}</div>
+      <div fxFlex="70">{{socite.tel}}</div>
+    </div>
+
+    <div class="width-200">
+      <div fxFlex="30">{{'Adresse' | translate }}</div>
+      <div fxFlex="70">{{socite.adresse}}</div>
+    </div>
+
+    <div class="width-200">
+      <div fxFlex="100">{{socite.email}}</div>
+    </div>
+    <!-- <h1 class="mt-0 margin-bottom-0" *ngIf="modifiedFact">
+      <strong>{{'facture' | translate }} {{refFacture}} </strong>
+    </h1> -->
+
+    <!-- <h4 class="my-0 margin-bottom-0">{{socite.libelle}}</h4>
+    <span>{{'Tel' | translate }}{{socite.tel}}</span>
+    <span>{{'Adresse' | translate }}{{socite.adresse}}</span>
+    <span>{{socite.email}}</span>
+    <strong>{{'label.numfacture' | translate }} - {{refFacture}}</strong> -->
+  </div>
+
+  <div fxLayout="row" fxLayoutWrap="wrap">
+    <!-- from address-->
+    <div fxFlex="100">
+      <div fxLayout="column">
+        <h4 class="margin-bottom-0">{{'LECLIENT' | translate }} {{nomClient}}</h4>
+        <div>{{'DATE' | translate }}: {{todayDate | date:"HH:MM dd/MM/yy "}}</div>
+        <br>
+      </div>
+    </div>
+    <!--  sales-->
+    <div fxFlex="33">
+
+    </div>
+    <!-- to address-->
+    <div fxFlex="33">
+    </div>
+    <!-- delivery address-->
+    <div fxFlex="100">
+    </div>
+  </div>
+  <hr>
+  <div fxLayout="row" class="padding-5">
+    <div fxFlex="45">
+      {{'labelPrdG' | translate }}
+    </div>
+    <div fxFlex="23">
+      {{'prixSell' | translate }}
+    </div>
+    <div fxFlex="15">
+      {{'lable.quantity' | translate }}
+    </div>
+    <div fxFlex="17">
+      {{'TOTAL' | translate }}
+    </div>
+  </div>
+  <hr>
+  <div fxLayout="row" *ngFor="let row of products" class="table-row-border">
+    <div fxFlex="45">
+      <strong>{{row.libelle}}</strong>
+      <br/>
+      <span class="mat-text-muted">{{row.refProduct}}</span>
+    </div>
+    <div fxFlex="23">
+      <strong>{{row.price }}</strong>
+    </div>
+    <div fxFlex="15">
+      <strong>{{row.qnt}}</strong>
+    </div>
+    <div fxFlex="17">
+      <strong>{{ (row.price * row.qnt) }}</strong>
+    </div>
+  </div>
+  <hr>
+  <div fxLayout="row">
+
+    <div fxFlex="80">
+      {{'TOTAL' | translate }}
+    </div>
+    <div fxFlex="20">
+      {{getSubTotal()}}
+    </div>
+  </div>
+
+  <div fxLayout="row">
+
+    <div fxFlex="80">
+      {{'TOTAL.PRODUCT' | translate }}
+    </div>
+    <div fxFlex="20">
+      {{products.length}}
+    </div>
+  </div>
+
+  <!-- <div fxLayout="row">
+    <div fxFlex="80">
+      {{'Paid' | translate }}
+    </div>
+    <div fxFlex="20">
+        {{customer.paid}}
+      </div>
+  </div> -->
+
+
+  <!-- <div fxLayout="row">
+    <div fxFlex="80">
+      {{'REST' | translate }}
+    </div>
+    <div fxFlex="20">
+      {{(netTotal) - (paidAmmount)}}
+    </div>
+  </div> -->
+</div>
+
+<!-- <div class="pl-0 pr-0 only-for-print">
+    <ngx-datatable class="material" [rows]="products" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'">
+      <ngx-datatable-column name="{{'labelPrdG' | translate }}">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <strong>{{row.libelle}}</strong>
+          <br/>
+          <span class="mat-text-muted">{{row.refProduct}}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'prixSell' | translate }}">
+        <ng-template ngx-datatable-cell-template let-row="row">
+  
+          <span class="mat-text-muted">{{row.price}}</span>
+  
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'lable.quantity' | translate }}">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <strong>
+            <span class="mat-text-muted">{{row.qnt}}</span>
+  
+          </strong>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{'TOTAL' | translate }}">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <strong>{{ (row.price * row.qnt) }}</strong>
+        </ng-template>
+      </ngx-datatable-column>
+  
+    </ngx-datatable>
+  </div> -->

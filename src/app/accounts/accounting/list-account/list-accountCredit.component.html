@@ -1,0 +1,54 @@
+<mat-card>
+  <mat-card-title align="center">{{'LISTOFCLAIMS' | translate }}</mat-card-title>
+  <div align="center">
+		 <h1> {{'TOTAL' | translate }}</h1>
+		  <h1> {{sumCont }}</h1>
+  </div>
+  <div>
+    <mat-card >
+                <mat-card-actions   class="pr-2 no-print">
+                    <button mat-button mat-raised-button color="primary" (click)="signUp()" *ngIf="modePrint">{{'print' | translate}}</button>
+                    <button mat-button mat-raised-button color="primary" (click)="modePrint=true" *ngIf="!modePrint"> {{'open.print' | translate}}</button>
+					 <button mat-button mat-raised-button color="primary" (click)="modePrint=false"*ngIf="modePrint">{{'retour' | translate}}</button>
+                </mat-card-actions>
+            </mat-card>
+    </div>
+ <mat-card-content  *ngIf="!modePrint">
+<ngx-datatable
+  class="material"
+  [rows]="rows" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit"
+   
+  
+  >
+   <ngx-datatable-column name="{{'ACCOUNTNUM' | translate }}" prop="numAccount" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'label' | translate }}" prop="libelle" ></ngx-datatable-column>  
+   <ngx-datatable-column name="{{'MNTCREDIT' | translate }}" prop="balance" ></ngx-datatable-column> 
+</ngx-datatable>
+</mat-card-content>
+
+<mat-card-content  *ngIf="modePrint">>
+<ngx-datatable
+  class="material"
+  [rows]="rows" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit"
+  >
+   <ngx-datatable-column name="{{'ACCOUNTNUM' | translate }}" prop="numAccount" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'label' | translate }}" prop="libelle" ></ngx-datatable-column>  
+   <ngx-datatable-column name="{{'CREDIT' | translate }}" prop="balance" ></ngx-datatable-column> 
+</ngx-datatable>
+</mat-card-content>
+
+
+
+</mat-card>

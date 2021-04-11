@@ -1,0 +1,40 @@
+<div fxLayout="column">
+	
+<h1 mat-dialog-title>Account List</h1>
+<mat-dialog-content fxLayout="column">
+	<div fxLayout="row">
+		<mat-input-container fxFlex>
+			<input type="text" name="" matInput placeholder="Account" [(ngModel)]="accountSearch" (change)="filterByAccount()">
+		</mat-input-container>
+		<mat-input-container fxFlex>
+			<input type="text" name="" matInput placeholder="Account Number" [(ngModel)]="accountNumberSearch" (change)="filterByAccountNumber()">
+		</mat-input-container>
+		<mat-input-container fxFlex>
+			<input type="text" name="" matInput placeholder="quality Account" [(ngModel)]="qualityAccountSearch" (change)="filterByQualityAccount()">
+		</mat-input-container>
+	</div>
+	<div fxLayout="row">		
+		<ngx-datatable fxFlex
+			[rows]="rows"
+			[columnMode]="'flex'"
+			[headerHeight]="50"
+			[footerHeight]="50"
+			[rowHeight]="50"
+			[scrollbarV]="false"
+			[scrollbarH]="false"
+			[selected]="selected"
+			[limit]="5"
+			[selectionType]="'single'"
+			
+		  class="material">
+		  	<ngx-datatable-column [flexGrow]="1" name="Account"></ngx-datatable-column>
+		  	<ngx-datatable-column [flexGrow]="1" name="Account Number"></ngx-datatable-column>
+		  	<ngx-datatable-column [flexGrow]="1" name="Quality Account"></ngx-datatable-column>
+		</ngx-datatable>
+	</div>
+</mat-dialog-content>
+<mat-dialog-actions fxFlex fxLayout="row" fxLayoutGap="1" fxLayoutAlign="end">
+	<button mat-button mat-dialog-close>Cancel</button>
+	<button mat-button color="primary" (click)="dialogInstance.close(selected)" class="mx-1">OK</button>
+</mat-dialog-actions>
+</div>

@@ -1,0 +1,87 @@
+<mat-card>
+  <mat-card-title align="center"><h1>{{'operationSaie' | translate }}</h1></mat-card-title>
+  <form [formGroup]="form">
+    <mat-card-content> 
+      
+	 <div align="center"> 		   
+<mat-form-field>
+  <input matInput [matDatepicker]="myDatepickerDt"  placeholder=" {{'DATE' | translate }}" [formControl]="form.controls['dateOperation']">
+  <mat-datepicker-toggle matSuffix [for]="myDatepickerDt"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepickerDt ></mat-datepicker>
+  <mat-error>{{'DATEREQ' | translate }} </mat-error>
+</mat-form-field>
+        </div>
+		
+	  <div fxLayout="row" fxLayoutAlign="start center" class="mb-2">
+       <mat-form-field>
+		      <mat-select placeholder="{{'DebitOrCredit' | translate }}"  [formControl]="form.controls['type']" style="width: 50%">
+                <mat-option value="IN">{{'CREDIT' | translate }}</mat-option>
+               <mat-option value="OUT">{{'DEBIT' | translate }}</mat-option>
+			 <!--   <mat-option value="CR">{{'CREDITSCR' | translate }}</mat-option>	-->		   
+              </mat-select>
+			  <mat-error>{{'TYPEREQ' | translate }} </mat-error>
+          </mat-form-field>
+		  <mat-form-field>
+            <input matInput placeholder="{{'MONTANT' | translate }}" [formControl]="form.controls['montant']"  pInputText (keypress)="onlyNumberKey($event)">
+          <mat-error>{{'MONTANTREQ' | translate }} </mat-error>
+        
+         </mat-form-field>
+      </div>
+	  
+	   <div fxLayout="row" fxLayoutAlign="start center" class="mb-2">
+       
+		  <mat-input-container style="width: 100%">
+<input type="text" placeholder="{{'AccountL' | translate }}" aria-label="Persoonne" matInput [formControl]="form.controls['compte']" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+	   <span>{{ option.libelle }}</span>
+        <span> ({{option.numAccount}}) </span>
+        
+      </mat-option>
+    </mat-autocomplete>
+</mat-input-container>
+      </div>
+
+      <div  fxLayout="row" fxLayoutAlign="start center" class="mb-2">
+	 
+       
+		<mat-input-container style="width: 100%">
+		<input matInput placeholder="{{'REMARQUE' | translate }}" [formControl]="form.controls['remarque']" >
+		</mat-input-container>
+      </div>
+        
+      
+
+    	
+    
+   <div align="center"> 
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid"  (click)="doSaveAccount()">{{'SAVE' | translate }}</button>
+    </div>
+	</mat-card-content>
+  </form>
+  
+   <mat-card-content *ngIf="showGreeting">
+   
+   <mat-card-content>
+           <ngx-datatable
+  class="material"
+  [rows]="AllOperation"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+ 
+  >
+   
+   <ngx-datatable-column name="{{'label' | translate }}" prop="name" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'MONTANT' | translate }}" prop="montant" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+   
+  
+</ngx-datatable>
+          </mat-card-content>
+   
+  
+   </mat-card-content>
+   
+</mat-card>

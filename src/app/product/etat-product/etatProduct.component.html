@@ -1,0 +1,95 @@
+<mat-card>
+  <mat-card-title align="center">{{'etatPrd' | translate }}</mat-card-title>
+  
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start center" class="mb-2" fxLayoutWrap="wrap" id="print-section" >
+      <div fxFlex.gt-sm="100" fxFlex="100">
+        
+               
+			   
+			    <mat-card-content class="no-print">
+               <prd-auto (changeProduct)="getProductDetail($event)" (gridShowHide)="gridShowHide($event)"></prd-auto>
+               </mat-card-content>
+        <h3 align="center">
+		<span>
+		{{productName}} {{'qntDisp' | translate }}	{{qntDisp}}
+			</span>   
+	</h3>		   
+		  
+		  <mat-form-field>
+  <input matInput [matDatepicker]="myDatepickerDt"  placeholder=" {{'DATE2' | translate }}" [(ngModel)]="from" (ngModelChange)="setMomentDt2($event)">
+  <mat-datepicker-toggle matSuffix [for]="myDatepickerDt"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepickerDt ></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput [matDatepicker]="myDatepickerDt1"  placeholder=" {{'DATE1' | translate }}" [(ngModel)]="to" (ngModelChange)="setMomentDt1($event)">
+  <mat-datepicker-toggle matSuffix [for]="myDatepickerDt1"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepickerDt1></mat-datepicker>
+</mat-form-field>
+		  
+
+      </div>
+    <mat-card fxFlex>
+                <mat-card-actions   class="pr-2 no-print">
+                    <button mat-button mat-raised-button color="primary" (click)="signUp()" *ngIf="modePrint">{{'print' | translate}}</button>
+                    <button mat-button mat-raised-button color="primary" (click)="modePrint=true" *ngIf="!modePrint"> {{'open.print' | translate}}</button>
+					 <button mat-button mat-raised-button color="primary" (click)="modePrint=false"*ngIf="modePrint">{{'retour' | translate}}</button>
+                </mat-card-actions>
+            </mat-card>
+    </div>
+
+	<mat-card id="print-section" *ngIf="!modePrint">
+      <mat-tab-group >
+        <mat-tab >
+		 <ngx-datatable
+  class="material"
+  [rows]="rows"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="count"
+  [offset]="offset"
+  [limit]="limit"
+  (page)='onPage($event)'>
+    <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" > 
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'IN' | translate }}" prop="montantDebit" ></ngx-datatable-column> 
+   <ngx-datatable-column name="{{'OUT' | translate }}" prop="montantCredit" ></ngx-datatable-column>    
+   </ngx-datatable>
+	</mat-tab >
+      </mat-tab-group >
+	</mat-card>
+
+  <mat-card  *ngIf="modePrint">
+      <mat-tab-group >
+        <mat-tab >
+		 <ngx-datatable
+  class="material"
+  [rows]="rowsIn"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  >
+    <ngx-datatable-column name="{{'DATE' | translate }}" prop="dateOperation" > 
+   <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+          </ng-template> 
+   </ngx-datatable-column>
+   <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="remarque" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'IN' | translate }}" prop="montantDebit" ></ngx-datatable-column> 
+   <ngx-datatable-column name="{{'OUT' | translate }}" prop="montantCredit" ></ngx-datatable-column>    
+   </ngx-datatable>
+	</mat-tab >
+      </mat-tab-group >
+	</mat-card>
+  
+ </mat-card-content>
+</mat-card>

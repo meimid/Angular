@@ -1,0 +1,99 @@
+<div fxLayout="row" fxLayoutAlign="space-around" fxLayout.xs="column">
+    <mat-card fxFlex.gt-xs="24" fxFlex="90" class="pionter" [routerLink]="['/opers/createOperation']">
+        <mat-card-content>
+            <div fxLayout="row" class="height-100">
+                <div fxFlex="35" color="primary" fxLayoutAlign="center center" class="color-1">
+                    <mat-icon class="mat-icon-size-30">add_shopping_cart</mat-icon>
+                </div>
+                <div fxFlex="65" fxLayoutAlign="center end" fxLayout="column">
+                    <div>61</div>
+                    <br>
+                    <div>{{'OPERATION' | translate }}</div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex.gt-xs="24" fxFlex="90" class="pionter" [routerLink]="['product/buy-goods']">
+        <mat-card-content>
+            <div fxLayout="row" class="height-100">
+                <div fxFlex="35" color="primary" fxLayoutAlign="center center" class="color-2">
+                    <mat-icon class="mat-icon-size-30">folder_open</mat-icon>
+                </div>
+                <div fxFlex="65" fxLayoutAlign="center end" fxLayout="column">
+                    <div>15</div>
+                    <br>
+                    <div>{{'SELLINGGOODS' | translate }}</div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card fxFlex.gt-xs="24" fxFlex="90" class="pionter" [routerLink]="['/opers/listOper']">
+        <mat-card-content>
+            <div fxLayout="row" class="height-100">
+                <div fxFlex="35" color="primary" fxLayoutAlign="center center" class="color-3">
+                    <mat-icon class="mat-icon-size-30">markunread_mailbox</mat-icon>
+                </div>
+                <div fxFlex="65" fxLayoutAlign="center end" fxLayout="column">
+                    <div>607</div>
+                    <br>
+                    <div>{{'DAILY' | translate }}</div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card fxFlex.gt-xs="24" fxFlex="90" class="pionter" [routerLink]="['/Accounts/etatCompte']">
+        <mat-card-content>
+            <div fxLayout="row" class="height-100">
+                <div fxFlex="35" color="primary" fxLayoutAlign="center center" class="color-4">
+                    <mat-icon class="mat-icon-size-30">people_outline</mat-icon>
+                </div>
+                <div fxFlex="65" fxLayoutAlign="center end" fxLayout="column">
+                    <div>2</div>
+                    <br>
+                    <div>{{'ETATCOMPTE' | translate }}</div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap>
+    <mat-card fxFlex.gt-xs="49" fxFlex="90" class="pionter" [routerLink]="['/Accounts/accountnumcreate']">
+        <mat-card-content>
+            <div fxLayout="row">
+
+                <div fxFlex="85" fxLayoutAlign="center end" fxLayout="column">
+                    {{'ACCOUNTNUMCREATE' | translate }}
+                </div>
+                <div fxFlex="15" color="primary" fxLayoutAlign="center center">
+                    <mat-icon class="mat-icon-size-30">add_shopping_cart</mat-icon>
+                    <!-- <a [routerLink]="['/product/buy-goods']" class="relative">
+                    </a> -->
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex.gt-xs="49" fxFlex="90" class="pionter" [routerLink]="['/product/product-add']">
+        <mat-card-content>
+            <div fxLayout="row">
+                <div fxFlex="85" fxLayoutAlign="center end" fxLayout="column">
+
+                    {{'ADDPRODUCTS' | translate }}
+
+                </div>
+                <div fxFlex="15" color="primary" fxLayoutAlign="center center">
+                    <mat-icon class="mat-icon-size-30">watch_later</mat-icon>
+                    <!-- <a [routerLink]="['/opers/createOperation']" class="relative">
+                    </a> -->
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+   
+   
+	
+  
+</div>

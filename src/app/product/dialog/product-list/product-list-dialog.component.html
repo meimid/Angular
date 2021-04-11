@@ -1,0 +1,27 @@
+<div fxLayout="column">	
+<h1 mat-dialog-title>Product List</h1>
+<mat-dialog-content fxLayout="row">
+	<ngx-datatable fxFlex
+		[rows]="rows"
+		[columnMode]="'flex'"
+		[headerHeight]="50"
+		[footerHeight]="50"
+		[rowHeight]="50"
+		[scrollbarV]="false"
+		[scrollbarH]="false"
+		[selected]="selected"
+		[limit]="5"
+		[selectionType]="'single'"
+		
+	  class="material">
+	  	<ngx-datatable-column [flexGrow]="2" name="refProduct"></ngx-datatable-column>
+	  	<ngx-datatable-column [flexGrow]="2" name="libelle"></ngx-datatable-column>
+	  	<ngx-datatable-column [flexGrow]="2" name="The Existing Quantity"></ngx-datatable-column>
+	  	<ngx-datatable-column [flexGrow]="1" name="Price"></ngx-datatable-column>
+	  </ngx-datatable>
+</mat-dialog-content>
+<mat-dialog-actions fxFlex fxLayout="row" fxLayoutGap="1" fxLayoutAlign="end">
+	<button mat-button mat-dialog-close>Cancel</button>
+	<button mat-button color="primary" (click)="dialogInstance.close(selected)" class="mx-1">OK</button>
+</mat-dialog-actions>
+</div>

@@ -1,0 +1,65 @@
+<mat-card>
+  
+		  <div align="center">
+		 <h1 *ngIf="!shortPrd"> {{'ListModel' | translate }}</h1>
+		 <h1 *ngIf="shortPrd"> {{'prdShorList' | translate }}</h1>
+		 
+		
+		  </div>
+		  <div align="center" *ngIf="!modePrint">
+               <mat-form-field >
+    <input matInput    placeholder="{{'lookyByNum' | translate }} ..." required (keyup)='updateFilter($event)'>
+  </mat-form-field> 
+</div>
+ <mat-card-content *ngIf="!modePrint">
+<ngx-datatable
+  class="material"
+  [rows]="rows" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit">
+   
+   <ngx-datatable-column name="{{'ADDCATLabel' | translate }}" prop="libelle" ></ngx-datatable-column>  
+  <ngx-datatable-column name="{{'numCat' | translate }}" prop="code" ></ngx-datatable-column> 
+  <ngx-datatable-column name="{{'marque' | translate }}" prop="marque.libelle" ></ngx-datatable-column> 
+  <ngx-datatable-column name="{{'ModifyProduct' | translate }}" prop="code" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		    <mat-icon   (click)="modelDetail(value)">edit</mat-icon>
+		   
+          </ng-template>   
+  </ngx-datatable-column>  
+ 
+</ngx-datatable>
+</mat-card-content>
+
+ <mat-card-content>
+ <div *ngIf="modePrint">
+<ngx-datatable
+  class="material"
+  [rows]="rowsPr" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit"
+ >
+  <ngx-datatable-column name="{{'ADDCATLabel' | translate }}" prop="libelle" ></ngx-datatable-column>  
+  <ngx-datatable-column name="{{'numCat' | translate }}" prop="nbCarton" ></ngx-datatable-column> 
+           
+</ngx-datatable>
+</div>
+ <div>
+ <mat-card fxFlex>
+                <mat-card-actions   class="pr-2 no-print">
+                    <button mat-button mat-raised-button color="primary" (click)="signUp()" *ngIf="modePrint">{{'print' | translate}}</button>
+                    <button mat-button mat-raised-button color="primary" (click)="modePrint=true" *ngIf="!modePrint"> {{'open.print' | translate}}</button>
+					 <button mat-button mat-raised-button color="primary" (click)="modePrint=false"*ngIf="modePrint">{{'retour' | translate}}</button>
+                </mat-card-actions>
+            </mat-card>
+			 </div>
+</mat-card-content>
+</mat-card>

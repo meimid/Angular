@@ -1,0 +1,134 @@
+<mat-card>
+  <mat-card-content>
+    <div class="mb-1">
+      <h1 class="mt-0 " align="center" > <strong>{{'bordeauLiv' | translate }} {{numBord}} </strong></h1>
+	   </div>
+
+    <div fxLayout="row" fxLayoutWrap="wrap">
+   
+      <div fxFlex.gt-xs="50" fxFlex="100" class="text-sm-right text-xs-left">
+        <h4 class="my-0">{{socite.libelle}}</h4>
+        <div fxLayout="column">
+        <span>{{'Tel' | translate }}{{socite.tel}}</span>
+        <span>{{'Adresse' | translate }}{{socite.adresse}}</span>	    
+      </div>
+      </div>
+    </div>
+  </mat-card-content>
+   <div class="no-print" >
+ 
+ 
+     <mat-card-content > 
+	
+	 <fact-auto (changeProduct)="getNotification($event)" (gridShowHide)="gridShowHide($event)"></fact-auto>
+  
+  </mat-card-content>
+	  </div>
+	  
+	   <div  >
+ <mat-form-field>
+  <textarea matInput placeholder="{{'REMARQUE' | translate }}"  [(ngModel)] ="remarque" matTextareaAutosize matAutosizeMinRows="2"
+            matAutosizeMaxRows="5"></textarea>
+</mat-form-field>
+	  </div>
+  <mat-card-content class="pl-0 pr-0 no-print">
+    <ngx-datatable
+      class="material"
+      [rows]="products"
+      [columnMode]="'flex'"
+      [headerHeight]="50"
+      [footerHeight]="0"
+      [rowHeight]="'auto'">
+      <ngx-datatable-column name="{{'labelPrdG' | translate }}" [flexGrow]="4">
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <strong>{{row.libelle}}</strong>
+              <br/>
+              <span class="mat-text-muted">{{row.refProduct}}</span>
+            </ng-template>
+          </ngx-datatable-column>
+    
+     <ngx-datatable-column name="{{'lable.quantity' | translate }}" [flexGrow]="1">
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <strong>
+                <input  [(ngModel)]="row.qnt"  style="width:50px;" (keypress)="onlyNumberKey($event)">
+              </strong>
+            </ng-template>
+          </ngx-datatable-column>
+      
+		   <ngx-datatable-column name="" [flexGrow]="2">
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <strong>
+                <button mat-raised-button color="primary" (click)="delete(row)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </strong>
+            </ng-template>
+          </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+  <hr class="only-for-print">
+   <mat-card-content class="pl-0 pr-0 only-for-print">
+    <ngx-datatable
+      class="material"
+      [rows]="products"
+      [columnMode]="'flex'"
+      [headerHeight]="50"
+      [footerHeight]="0"
+      [rowHeight]="'auto'">
+      <ngx-datatable-column name="{{'labelPrdG' | translate }}" [flexGrow]="4">
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <strong>{{row.libelle}}</strong>
+              <br/>
+              <span class="mat-text-muted">{{row.refProduct}}</span>
+            </ng-template>
+          </ngx-datatable-column>
+     
+     <ngx-datatable-column name="{{'lable.quantity' | translate }}" [flexGrow]="1">
+            <ng-template ngx-datatable-cell-template let-row="row">
+              <strong>
+			  <span class="mat-text-muted">{{row.qnt}}</span>
+               
+              </strong>
+            </ng-template>
+          </ngx-datatable-column>
+     
+    </ngx-datatable>
+  </mat-card-content>
+
+  
+
+  <mat-card-actions class="pr-2 no-print">
+        <button mat-button mat-raised-button color="primary" (click)="signUp()"  [disabled]="submitBtnDisaple" *ngIf="modifiedFact"  >{{'SAVE' | translate}}</button>
+		<button mat-button mat-raised-button color="primary" (click)="print()"  [disabled]="submitBtnDisaple"   >{{'print' | translate}}</button>
+      
+		<!-- routerLink="/product/bill-print" -->
+      </mat-card-actions>
+</mat-card>
+
+<div class="print-container only-for-print">
+
+<div fxLayout="row" >
+    <div >
+      {{'labelPrdG' | translate }}
+    </div>
+   
+    <div >
+      {{'lable.quantity' | translate }}
+    </div>
+   
+  </div>
+  <div fxLayout="row" *ngFor="let row of products" class="table-row-border">
+    <div >
+      <strong>{{row.libelle}}</strong>
+      <br/>
+      <span class="mat-text-muted">{{row.refProduct}}</span>
+    </div>
+   
+    <div >
+      <strong>{{row.qnt}}</strong>
+    </div>
+    
+  </div>
+  
+  
+</div>

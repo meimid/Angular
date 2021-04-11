@@ -1,0 +1,110 @@
+<mat-card>
+  
+		  <div align="center">
+		 <h1> {{'Listfacture' | translate }}</h1>
+		  </div>
+		   <div>
+		    <mat-form-field>
+  <input matInput [matDatepicker]="myDatepicker1"  placeholder=" {{'DATE2' | translate }}" [(ngModel)]="from" (ngModelChange)="setMomentDt2($event)" >
+  <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepicker1 ></mat-datepicker>
+</mat-form-field>
+
+
+
+<mat-form-field>
+  <input matInput [matDatepicker]="myDatepicker2"  placeholder=" {{'DATE1' | translate }}" [(ngModel)]="to" (ngModelChange)="setMomentDt1($event)" >
+  <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+  <mat-datepicker #myDatepicker2 ></mat-datepicker>
+</mat-form-field>
+<acctier-dialog (changeNumCompte)="getUpdateNumcompte($event)"  ></acctier-dialog>    
+ 
+<div class="padding-right-1 no-print" >
+ <button mat-raised-button color="primary"   (click)="rerechData()">{{'search' | translate }}</button>
+ 
+ <button mat-raised-button color="primary"   *ngIf="rows.length > 0"  (click)="GrourerechData();showDet=true">{{'grpupFact' | translate }}</button>
+ <button mat-raised-button color="primary"   *ngIf="rows.length > 0"  (click)="print();showDet=true">{{'print' | translate }}</button>
+  </div>     
+ 
+</div>
+<div align="center">
+		 
+<div class="padding-right-1 no-print" >
+               <mat-form-field >
+          <input matInput    placeholder="{{'search' | translate }} ..." required (keyup)='updateFilter($event)'>
+     </mat-form-field> 
+	 </div>
+</div>
+<div *ngIf="!showDet">
+ <mat-card-content>
+<ngx-datatable
+  class="material"
+  [rows]="rows" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit">
+   <ngx-datatable-column name="{{'DATECREA' | translate }}" prop="date" >
+     <ng-template let-value="value" ngx-datatable-cell-template>
+		   {{value  | date: 'dd/MM/yyyy'}}
+    </ng-template> 
+   
+   </ngx-datatable-column> 
+   <ngx-datatable-column name="{{'labelNumfacture' | translate }}" prop="numFacture" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'LECLIENT' | translate }}" prop="clientNom" ></ngx-datatable-column> 
+    <ngx-datatable-column name="{{'TOTAL' | translate }}" prop="total" ></ngx-datatable-column>
+    <ngx-datatable-column name="{{'DETAIL' | translate }}" prop="numFacture" >
+           <ng-template let-value="value" ngx-datatable-cell-template>
+		    <mat-icon   (click)="factureDetail(value)">edit</mat-icon>
+		   
+          </ng-template>   
+  </ngx-datatable-column>  
+   
+</ngx-datatable>
+</mat-card-content>
+</div>
+<div *ngIf="showDet">
+ <mat-card-content>
+<ngx-datatable
+  class="material"
+  [rows]="rowsDt" 
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [offset]="offset"
+  [limit]="limit">
+   <ngx-datatable-column name="{{'refPrd' | translate }}" prop="refProduct" ></ngx-datatable-column>
+   <ngx-datatable-column name="{{'labelPrd' | translate }}" prop="libelle" ></ngx-datatable-column>
+    <ngx-datatable-column name="{{'lable.quantity' | translate }}" prop="qntLinge" ></ngx-datatable-column>
+  <ngx-datatable-column name="{{'prixSell' | translate }}" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <strong>{{ (row.balance / row.qntLinge) }}</strong>
+        </ng-template>
+      </ngx-datatable-column>
+   <ngx-datatable-column name="{{'TOTAL' | translate }}" prop="balance" ></ngx-datatable-column> 
+   
+</ngx-datatable>
+    <div  fxLayout="row" fxLayoutWrap="wrap">
+      <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" class="mt-1 mb-1">
+       
+      </div>
+      <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" class="mt-1 mb-1 text-sm-right text-md-left">
+       
+      </div>
+      <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" class="mt-1 mb-1">
+      
+      </div>
+      <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" class="mt-1 mb-1 text-xs-left text-sm-right">
+        <h6 class="text-uppercase text-sm ma-0 text-bold">{{'TOTAL' | translate }}</h6>
+        <h1 class="ma-0 mat-text-accent">{{ getTotal() }}</h1>
+      </div>
+    </div>
+ 
+ 
+</mat-card-content>
+
+</div>
+</mat-card>
