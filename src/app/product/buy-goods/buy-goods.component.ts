@@ -103,7 +103,6 @@ export class BuyGoodsComponent implements OnInit {
   messageSave: '';
   restForm = true;
   currentCompte = '';
-  currentCompteName = '';
   submitBtnDisaple: boolean = false;
   newFact: boolean = true;
   paidAmmount = 0;
@@ -118,7 +117,6 @@ export class BuyGoodsComponent implements OnInit {
       libelle: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(10)])],
       numCompte: '',
       numPersonne: '',
-	  nomClient: '',
       adresse: '',
       tel: ' ',
       type: ' ',
@@ -130,6 +128,7 @@ export class BuyGoodsComponent implements OnInit {
     if (sociteFromSt) {
 
       this.socite = JSON.parse(sociteFromSt);
+	  if(this.socite['livred']!= undefined)
       this.livred = this.socite['livred'];
       if (this.socite['tax'])
         this.tax = this.socite['tax'];
@@ -141,7 +140,7 @@ export class BuyGoodsComponent implements OnInit {
       if (re == 'false')
         this.restForm = false;
     }
-    this.prdSer.getAllProudct().subscribe(data => { this.AllProductList = data; });
+    this.prdSer.getAllProudctDisp().subscribe(data => { this.AllProductList = data; });
     this.messageSave = this.translate.instant('saveAvecSucces');
   }
 
@@ -364,8 +363,6 @@ export class BuyGoodsComponent implements OnInit {
         formData['refFacture'] = this.refFacture;
       }
       formData['numCompte'] = this.currentCompte;
-	  formData['nomClient'] = this.currentCompteName;
-	  
 
 
       //this.restAccout=false;
@@ -389,11 +386,10 @@ export class BuyGoodsComponent implements OnInit {
 
             }, 500);
 			*/
-            if (!this.restForm) {
+            if (this.restForm) {
               this.bill.products = [];
               this.restAccout = true;
               this.currentCompte = '';
-			  this.currentCompteName = '';
               this.typePaiement = 'ESPECE';
               this.newFact = true;
               this.livred = true;
@@ -438,7 +434,6 @@ export class BuyGoodsComponent implements OnInit {
     this.bill.products = [];
     this.restAccout = true;
     this.currentCompte = '';
-	this.currentCompteName= '';
     this.typePaiement = 'ESPECE';
     this.newFact = true;
     this.livred = true;
@@ -452,11 +447,9 @@ export class BuyGoodsComponent implements OnInit {
 
   getUpdateNumcompte(evt) {
     this.currentCompte = '';
-	this.currentCompteName= '';
     if (evt && evt['numAccount']) {
-	   this.currentCompte = evt['numAccount'];
-	  this.currentCompteName= evt['libelle'];
-	}
+      this.currentCompte = evt['numAccount'];
+    }
     //  var ac: Account;
 
     // this.restAccout=true;

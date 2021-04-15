@@ -133,7 +133,7 @@ this.sub = this.route.params.subscribe(params => {
           this.livred = data['livred'];
           this.numBord = idPrd;
 		  this.refFacture = data['refFacture'];
-          this.typePaiement = data['typePaiement'];         
+            
           this.modifiedFact = false;        
           this.todayDate = new Date(data['dateOperation']).toISOString().slice(0, 10);
           this.currentCompte = data['numCompte'];
@@ -172,8 +172,9 @@ this.sub = this.route.params.subscribe(params => {
 		
 		
  this.factSer.getAllNlivredProductByNumFact(evt.numFacture).subscribe(data => {
-		this.refFacture=evt.numFacture;		
-    for (var i = 0; i < data.length; i++) {	
+		this.refFacture=evt.numFacture;	
+       this.products=[];		
+    for (var i = 0; i < data.length; i++) {		
 	  this.product.refProduct = data[i].refProduct;
       this.product.libelle = data[i].libelle;
 	  this.product.qnt=data[i].balance;
@@ -256,15 +257,13 @@ this.sub = this.route.params.subscribe(params => {
 
   getSubTotal() {
     let total = 0.00;
-    for (let i = 0; i < this.products.length; i++) {
-      total += (this.products[i].price * this.products[i].qnt);
-    }
+    
     return total;
   }
 
   getCalculatedTax() {
 	  
-    return ((this.tax * this.getSubTotal()) / 100);
+    return 0;
   }
 
   getTotal() {
@@ -311,12 +310,15 @@ this.sub = this.route.params.subscribe(params => {
 			 
 		  
            
-            window.print();
+          //  window.print();
 			this.submitBtnDisaple=false;
 			
 			 this.showSnackBarT(this.messageSave, 'sb-success');
 			//this.refFacture = '';
-			
+			this.products=[];
+		
+			//this.refrecheBrd();
+			//window.location.reload();
 			 
   
 			
@@ -373,14 +375,12 @@ this.submitBtnDisaple=false;
      
   }
   getUpdateNumcompte(evt) {
-	 this.currentCompte='';
-	 if(evt &&evt['numAccount']){
-	this.currentCompte=	 evt['numAccount'];
-	 }
-	//  var ac: Account;
 	
-	// this.restAccout=true;
-    //  this.form.patchValue({numCompteTo: ac.numAccount,name: ac.libelle});
-        // Do something with the notification (evt) sent by the child!
     }
+	
+	
+	 refrecheBrd(){
+	 this.router.navigate(["product/bord-add"]);
+	  
+  }
 }

@@ -99,7 +99,7 @@
   </div>
 
   <div fxFlex.gt-xs="64" fxFlex="100" class="no-print">
-    <prd-auto (changeProduct)="getNotification($event)" (gridShowHide)="gridShowHide($event)" (bareCodeInsert)="bareCodeInsert($event)"></prd-auto>
+    <prd-autodisp (changeProduct)="getNotification($event)" (gridShowHide)="gridShowHide($event)" (bareCodeInsert)="bareCodeInsert($event)"></prd-autodisp>
 
 
     <ngx-datatable class="material" [rows]="bill.products" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'">

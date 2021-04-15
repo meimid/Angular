@@ -247,6 +247,8 @@
  "open.print":"Imprimer",
  "soldeCompte":"Solder le compte",
  "EXIT":"Sortir",
+ "SOCITE.INFO":"Information de la societé",
  "listCategorie":"Liste des catégories",
- "prdNotDispo":"Produit n''est pas disponible "
+ "prdNotDispo":"Produit n''est pas disponible ",
+ "labelNumfacture":"Facture"
 }

@@ -53,6 +53,10 @@ let body = urlSearchParams.toString()
 	public getAllProudct(): Observable<any> {
 	  return this.http.get(`/products/listAllProduct`);
   }
+  
+  public getAllProudctDisp(): Observable<any> {
+	  return this.http.get(`/products/listAllProductDispo`);
+  }
   	public getAllProudctFact(): Observable<Response> {
 	  return this.http.get(`/products/listAllProductDispo`);
   }

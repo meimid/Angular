@@ -23,6 +23,7 @@ import { SearchProgressDialog } from './dialog/search-progress/search-progress-d
 import { ConfirMatialog } from './dialog/confirm/confirm-dialog.component';
 import { ProductCreateCompComponent } from './addProduct/product-create-comp.component';
 import { ProductAutoComponent } from './auto-product/productAuto.component';
+import { ProductDispAutoComponent } from './auto-product/productDispAuto.component';
 import { ProductPupComponent } from './auto-product/productPup.component';
 import { ProductListComponent } from './auto-product/productPup.component';
 //import { AccountPupComponent } from './auto-account/accountPup.component';
@@ -99,6 +100,7 @@ import {
         ProductPupComponent,
         ProductListComponent,
         ProductAutoComponent,
+		ProductDispAutoComponent,
 	    EtatProductComponent,
 		BuyGoodsGrosComponent,
 		ListFactureComponent,
